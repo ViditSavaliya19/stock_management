@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:srock_management/screen/login/controller/login_controller.dart';
+import 'package:srock_management/screen/profile/controller/profile_controller.dart';
 import 'package:srock_management/utils/helper/auth_helper.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final _passwordController = TextEditingController();
 
   LoginController controller = Get.put(LoginController());
+  ProfileController profileController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +122,11 @@ class _SignInScreenState extends State<SignInScreen> {
 
       bool? isLogin = await AuthHelper.helper
           .signInEmailPassword(_emailController.text, _passwordController.text);
+
+      AuthHelper.helper.currentUser();
+
+      profileController.getProfileData();
+
 
       if (isLogin != null && isLogin) {
         Get.offAllNamed('home');
