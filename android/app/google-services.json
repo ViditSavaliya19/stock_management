@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "286628788257",
+    "project_id": "stockmanagement-5db68",
+    "storage_bucket": "stockmanagement-5db68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:286628788257:android:007abf84d0b2ec851acb60",
+        "android_client_info": {
+          "package_name": "com.app.srock_management"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDp8wlfa4YUjJixreIfZqAhfeO2Fh_nvsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
