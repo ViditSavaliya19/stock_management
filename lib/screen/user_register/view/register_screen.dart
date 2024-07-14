@@ -123,7 +123,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const SizedBox(height: 20.0),
                 DropdownButtonFormField<String>(
                   decoration: InputDecoration(
-                    hintText: 'Select Department',
+                    hintText: 'Select Company',
                     prefixIcon:
                         const Icon(Icons.business, color: Colors.lightBlue),
                     filled: true,
@@ -134,7 +134,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   ),
                   value: _selectedDepartment,
-                  items: ['HR', 'Sales', 'Engineering', 'Marketing']
+                  items: ["Mahad", "Karunesh", "Soham", "Ansh"]
                       .map((department) => DropdownMenuItem(
                             value: department,
                             child: Text(department),

@@ -1,5 +1,6 @@
 
 import 'package:flutter/cupertino.dart';
+import 'package:srock_management/screen/entry/view/entry_screen.dart';
 import 'package:srock_management/screen/login/view/signIn_screen.dart';
 import 'package:srock_management/screen/profile/view/profile_screen.dart';
 import 'package:srock_management/screen/user_register/view/userlist_screen.dart';
@@ -21,6 +22,7 @@ class AppRoutes{
     'newuser': (context) => const RegisterScreen(),
     'profile': (context) => const ProfileScreen(),
     'users': (context) => const UserListScreen(),
+    'entry': (context) => const EntryScreen(),
   };
 
 }

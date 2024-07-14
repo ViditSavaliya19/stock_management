@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../../screen/entry/model/entry_model.dart';
+
 class FireDbHelper {
   static FireDbHelper helper = FireDbHelper._();
 
@@ -38,4 +40,23 @@ class FireDbHelper {
   Future<QuerySnapshot<Map<String, dynamic>>> getAllStockData() {
     return fireStore.collection("stocks").get();
   }
+
+  void updateStock() {}
+
+  void deleteStock() {}
+
+  Future<void> addStockEntryToFirestore(EntryModel stock) async {
+    try {
+      await fireStore.collection('company_stocks').add(stock.toFirestore());
+    } catch (e) {
+      print('Error adding stock: $e');
+    }
+  }
+
+  Stream<List<EntryModel>> getCompanyStockStream() {
+    return FirebaseFirestore.instance.collection('company_stocks').snapshots().map((snapshot) {
+      return snapshot.docs.map((doc) => EntryModel.fromFirestore(doc)).toList();
+    });
+  }
+
 }

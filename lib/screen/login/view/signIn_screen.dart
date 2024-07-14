@@ -125,7 +125,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
       AuthHelper.helper.currentUser();
 
-      profileController.getProfileData();
+      await profileController.getProfileData();
 
 
       if (isLogin != null && isLogin) {

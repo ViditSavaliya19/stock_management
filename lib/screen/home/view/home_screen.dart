@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
+import 'package:intl/intl.dart';
+import 'package:srock_management/screen/entry/controller/entry_controller.dart';
+import 'package:srock_management/screen/entry/model/entry_model.dart';
+import 'package:srock_management/screen/home/view/analysis_screen.dart';
+import 'package:srock_management/screen/home/view/dash_screen.dart';
 import 'package:srock_management/screen/profile/controller/profile_controller.dart';
+import 'package:srock_management/screen/stock/controller/stock_controller.dart';
 import 'package:srock_management/utils/helper/auth_helper.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,6 +18,16 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   ProfileController profileController = Get.find();
+  StockController stockController = Get.put(StockController());
+  EntryController entryController = Get.put(EntryController());
+  int i =0;
+
+  @override
+  void initState() {
+    super.initState();
+    stockController.getAllStockData();
+    entryController.getAllCompanyStock();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -94,10 +109,26 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed('entry');
+        },
         backgroundColor: Colors.lightBlue[50],
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
+      ),
+      body: [const DashScreen(),const AnalysisScreen()][i] ,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: i,
+        onTap: (value) {
+          setState(() {
+            i=value;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home",),
+          BottomNavigationBarItem(icon: Icon(Icons.balance),label: "Balance"),
+        ],
       ),
     );
   }
+
 }
