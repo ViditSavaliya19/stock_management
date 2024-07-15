@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:srock_management/screen/stock/controller/stock_controller.dart';
+import 'package:srock_management/screen/stock/model/stock_model.dart';
 import 'package:srock_management/utils/helper/firedb_helper.dart';
 
 class StockScreen extends StatefulWidget {
@@ -13,6 +14,7 @@ class StockScreen extends StatefulWidget {
 class _StockScreenState extends State<StockScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _stockNameController = TextEditingController();
+  TextEditingController _stockUpdateNameController = TextEditingController();
 
   StockController stockController = Get.put(StockController());
 
@@ -68,16 +70,48 @@ class _StockScreenState extends State<StockScreen> {
                       margin: const EdgeInsets.symmetric(
                           vertical: 8.0, horizontal: 16.0),
                       child: ExpansionTile(
-                        title: Text(stockController.stockList[index].stockName!),
+                        title:
+                            Text(stockController.stockList[index].stockName!),
                         children: <Widget>[
                           ButtonBar(
                             children: <Widget>[
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  _stockUpdateNameController.text =
+                                      stockController
+                                          .stockList[index].stockName!;
+
+                                  Get.defaultDialog(
+                                    title: "Update Stock",
+                                    content: TextField(
+                                      controller: _stockUpdateNameController,
+                                    ),
+                                    actions: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          FireDbHelper.helper.updateStock(
+                                              StockModel(
+                                                  docId: stockController
+                                                      .stockList[index].docId!,
+                                                  stockName:
+                                                      _stockUpdateNameController
+                                                          .text),
+                                              stockController
+                                                  .stockList[index].docId!);
+                                          Get.back();
+                                        },
+                                        child: const Text("Update"),
+                                      ),
+                                    ],
+                                  );
+                                },
                                 child: const Text('Update'),
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  FireDbHelper.helper.deleteStock(
+                                      stockController.stockList[index].docId!);
+                                },
                                 child: const Text('Delete'),
                               ),
                             ],

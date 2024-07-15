@@ -23,32 +23,39 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Data"),
+        title: const Text("Stock Analysis"),
       ),
-      body: Expanded(
-        child: Obx(
-          () => ListView.builder(
-            itemCount: entryController.analysisList.length,
-            itemBuilder: (context, index) {
-              List keys = entryController.analysisList.keys.toList();
-              List<EntryModel>? entryList =
-                  entryController.analysisList[keys[index]];
-              return ExpansionTile(
-                title: Text("${keys[index]}"),
-                // trailing: Text(
-                //   '${stock.quantity} ${stock.unit}',
-                //   style: const TextStyle(color: Colors.blue),
-                // ),
-                children: List.generate(
-                  entryList!.length,
-                  (index) => ListTile(
-                    title: Text(entryList[index].companyName),
-                    subtitle: Text("${entryList[index].quantity}"),
+      body: Obx(
+        () => ListView.builder(
+          itemCount: entryController.analysisList.length,
+          itemBuilder: (context, index) {
+            List keys = entryController.analysisList.keys.toList();
+            List<EntryModel>? entryList =
+                entryController.analysisList[keys[index]]?.entryModelList;
+            return ExpansionTile(
+              title: Text("${keys[index]}"),
+              trailing: Text(
+                '${ entryController.analysisList[keys[index]]!.totalQuantity} KG',
+                style: const TextStyle(color: Colors.blue),
+              ),
+              children: List.generate(
+                entryList!.length,
+                (index) => Container(
+                  height: 50,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(entryList[index].companyName),
+                      Text(
+                          "${entryList[index].quantity} ${entryList[index].unit}"),
+                    ],
                   ),
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         ),
       ),
     );

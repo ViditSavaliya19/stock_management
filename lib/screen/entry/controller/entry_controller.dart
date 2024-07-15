@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:srock_management/screen/entry/model/analysis_model.dart';
 import 'package:srock_management/screen/profile/controller/profile_controller.dart';
 import 'package:srock_management/screen/stock/controller/stock_controller.dart';
 import 'package:srock_management/utils/helper/firedb_helper.dart';
@@ -7,8 +8,7 @@ import 'package:srock_management/utils/helper/firedb_helper.dart';
 import '../model/entry_model.dart';
 
 class EntryController {
-  RxMap<String, List<EntryModel>> analysisList =
-      <String, List<EntryModel>>{}.obs;
+  RxMap<String, AnalysisModel> analysisList = <String, AnalysisModel>{}.obs;
   ProfileController profileController = Get.find();
   StockController stockController = Get.find();
   RxList<EntryModel> entryList = <EntryModel>[].obs;
@@ -42,15 +42,17 @@ class EntryController {
         return matchesDate && matchesCompany;
       }
     }).toList();
+    stockWiseEntry();
   }
 
+
   void stockWiseEntry() {
-    Map<String, List<EntryModel>> temp = {};
+    Map<String, AnalysisModel> temp = {};
 
     for (var element in stockController.stockList) {
-
-      List<EntryModel> l1 =[];
-      temp[element.stockName!] = l1;
+      List<EntryModel> l1 = [];
+      AnalysisModel model = AnalysisModel(entryModelList: l1, totalQuantity: 0);
+      temp[element.stockName!] = model;
     }
 
     var todayStock = allEntryBackUpList.where((stock) {
@@ -59,14 +61,22 @@ class EntryController {
       return matchesDate;
     });
 
-    todayStock.map(
-      (e) {
-        List<EntryModel>? l1 = temp[e.stockName];
-        l1!.add(e);
-        temp[e.stockName]= l1;
-      },
-    );
+    for (var e in todayStock) {
+      AnalysisModel? analysisModel = temp[e.stockName];
+      List<EntryModel> l1 = analysisModel!.entryModelList;
+      l1.add(e);
+      analysisModel.entryModelList = l1;
+      if (e.unit == 'tonne') {
+        analysisModel.totalQuantity =
+            analysisModel.totalQuantity! + (e.quantity * 1000);
+      } else {
+        analysisModel.totalQuantity = analysisModel.totalQuantity! + e.quantity;
+      }
 
+      temp[e.stockName] = analysisModel;
+    }
+
+    print(todayStock);
     print(temp);
 
     analysisList.value = temp;

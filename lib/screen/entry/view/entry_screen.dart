@@ -20,18 +20,14 @@ class _EntryScreenState extends State<EntryScreen> {
   ProfileController profileController = Get.find();
   StockController stockController = Get.put(StockController());
 
-  @override
-  void initState() {
-    super.initState();
-    stockController.getAllStockData();
-  }
+
 
   final _formKey = GlobalKey<FormState>();
   String? _selectedStockName;
   final TextEditingController _quantityController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
-  final List<String> _units = ['kg', 'ton']; // Units for selection
+  final List<String> _units = ['kg', 'tonne']; // Units for selection
   String? _selectedUnit = 'kg'; // Default unit
 
   @override
@@ -190,7 +186,7 @@ class _EntryScreenState extends State<EntryScreen> {
     }
   }
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     if (_formKey.currentState!.validate() && _selectedStockName != null) {
       int quantity = int.parse(_quantityController.text.trim());
 
@@ -203,7 +199,8 @@ class _EntryScreenState extends State<EntryScreen> {
           unit: _selectedUnit!,
           addEntryEmpName: profileController.userModel.value.name!);
 
-      FireDbHelper.helper.addStockEntryToFirestore(entryModel);
+      await FireDbHelper.helper.addStockEntryToFirestore(entryModel);
+
     }
   }
 }

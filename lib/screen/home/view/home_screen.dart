@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:srock_management/screen/entry/controller/entry_controller.dart';
-import 'package:srock_management/screen/entry/model/entry_model.dart';
 import 'package:srock_management/screen/home/view/analysis_screen.dart';
 import 'package:srock_management/screen/home/view/dash_screen.dart';
 import 'package:srock_management/screen/profile/controller/profile_controller.dart';
@@ -35,6 +34,14 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.lightBlue[50],
+        actions: [
+          ElevatedButton.icon(
+            onPressed: () => selectDate(context),
+            icon: Icon(Icons.calendar_month),
+            label: Text(DateFormat('yyyy-MM-dd')
+                .format(entryController.startDate.value)),
+          ),
+        ],
       ),
       drawer: Drawer(
         backgroundColor: Colors.lightBlue[50],
@@ -120,7 +127,10 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: i,
         onTap: (value) {
           setState(() {
-            i=value;
+            if(profileController.userModel.value.access=="Admin")
+              {
+                i=value;
+              }
           });
         },
         items: const [
@@ -129,6 +139,18 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+  Future<void> selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    setState(() {
+      entryController.startDate.value = picked ?? DateTime.now();
+      entryController.filterStocks();
+    });
   }
 
 }

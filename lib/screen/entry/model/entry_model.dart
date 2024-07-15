@@ -10,6 +10,7 @@ class EntryModel {
   int quantity;
   String unit;
   String addEntryEmpName;
+  String? docId;
 
   EntryModel({
     required this.stockName,
@@ -19,12 +20,14 @@ class EntryModel {
     required this.quantity,
     required this.unit,
     required this.addEntryEmpName,
+    this.docId
   });
 
   factory EntryModel.fromFirestore(DocumentSnapshot doc) {
     Map data = doc.data() as Map<String, dynamic>;
 
     return EntryModel(
+      docId: doc.id ,
       stockName: data['stockName'] ?? '',
       companyName: data['companyName'] ?? '',
       date: (data['date'] as Timestamp).toDate(),
