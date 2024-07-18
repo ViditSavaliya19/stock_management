@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
+import 'package:srock_management/componets/alert/access_alert.dart';
 import 'package:srock_management/model/user_model.dart';
 import 'package:srock_management/utils/helper/auth_helper.dart';
 
@@ -23,6 +24,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: const Text("Create A New User"),),
       backgroundColor: Colors.lightBlue[50],
       body: Center(
         child: SingleChildScrollView(
@@ -204,6 +206,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   Future<void> _register() async {
+
+
+
     if (_formKey.currentState!.validate()) {
       bool isSuccess = await AuthHelper.helper.createNewUserAsEmp(
         model: UserModel(

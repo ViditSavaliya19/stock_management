@@ -10,9 +10,10 @@ class StockController extends GetxController
   RxList<StockModel> stockList = <StockModel>[].obs;
 
   void getAllStockData() {
-    List<StockModel> list = [];
 
     FireDbHelper.helper.getAllStockData().listen((event) {
+      List<StockModel> list = [];
+
       for (var x in event.docs) {
         Map m1 = x.data() as Map;
 

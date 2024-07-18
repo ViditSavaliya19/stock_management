@@ -90,15 +90,23 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
+            ListTile(
+              onTap: () {
+                Get.toNamed('profile');
+              },
+              leading: const Icon(Icons.person),
+              title: const Text("Profile"),
+              trailing: const Icon(Icons.arrow_forward_ios),
+            ),
             Obx(
               () => Visibility(
                 visible: profileController.userModel.value.access == "Admin",
                 child: ListTile(
                   onTap: () {
-                    Get.toNamed('stock');
+                    Get.toNamed('settings');
                   },
-                  leading: const Icon(Icons.group),
-                  title: const Text("Add Stock"),
+                  leading: const Icon(Icons.settings),
+                  title: const Text("Settings"),
                   trailing: const Icon(Icons.arrow_forward_ios),
                 ),
               ),

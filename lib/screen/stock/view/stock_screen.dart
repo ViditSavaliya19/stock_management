@@ -53,10 +53,10 @@ class _StockScreenState extends State<StockScreen> {
                       return null;
                     },
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   ElevatedButton(
                     onPressed: _submitForm,
-                    child: Text('Add Stock'),
+                    child: const Text('Add Stock'),
                   ),
                 ],
               ),
@@ -111,6 +111,8 @@ class _StockScreenState extends State<StockScreen> {
                                 onPressed: () {
                                   FireDbHelper.helper.deleteStock(
                                       stockController.stockList[index].docId!);
+
+
                                 },
                                 child: const Text('Delete'),
                               ),

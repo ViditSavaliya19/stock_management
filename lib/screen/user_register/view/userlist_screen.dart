@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:srock_management/componets/alert/access_alert.dart';
 import 'package:srock_management/screen/user_register/controller/user_controller.dart';
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});
@@ -48,6 +49,12 @@ class _UserListScreenState extends State<UserListScreen> {
                   ),
                   ButtonBar(
                     children: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          showAccessPermissionAlert(context);
+                        },
+                        child: const Text('Access (Permission)'),
+                      ),
                       TextButton(
                         onPressed: () {},
                         child: const Text('Update'),
