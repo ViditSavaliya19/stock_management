@@ -49,13 +49,10 @@ class AuthHelper {
       UserCredential userCredential = await auth.createUserWithEmailAndPassword(
           email: model.email!, password: model.password!);
 
-      await FireDbHelper.helper.addNewAccessEmpData(
-          name: model.name,
-          email: model.email,
-          password: model.password,
-          department: model.department,
-          mobile: model.mobile,
-          uid: userCredential.user!.uid);
+      // Add UID in Model
+      model.uid = userCredential.user!.uid;
+
+      await FireDbHelper.helper.createNewUser(model: model);
 
 
       //For reLogin as Admin

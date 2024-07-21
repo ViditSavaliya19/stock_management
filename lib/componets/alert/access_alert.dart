@@ -1,50 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:multi_dropdown/multiselect_dropdown.dart';
+import 'package:srock_management/screen/spalsh/controller/spalsh_controller.dart';
+import 'package:srock_management/utils/constants.dart';
+
+import '../widgets/ResponsiveText.dart';
 
 void showAccessPermissionAlert(BuildContext context) {
   showDialog(
     context: context,
     builder: (context) {
-      return const AccessAlert();
+      return AlertDialog(
+        title: Text("Assign Designation"),
+        content: AccessAlert(),
+      );
     },
   );
 }
 
-class AccessAlert extends StatefulWidget {
-  const AccessAlert({super.key});
+class AccessAlert extends StatelessWidget {
+  AccessAlert({super.key});
 
-  @override
-  State<AccessAlert> createState() => _AccessAlertState();
-}
+  SplashController splashController = Get.put(SplashController());
 
-class _AccessAlertState extends State<AccessAlert> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Access Permission"),
-      ),
-      body:  Column(
+    return SizedBox(
+      width: 300,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          SwitchListTile(
-            value: true,
-            onChanged: (value) {},
-            title: const Text("Admin"),
+          MultiSelectDropDown(
+            onOptionSelected: (List<ValueItem> selectedOptions) {},
+            options: splashController.companyList.map(
+              (e) {
+                return ValueItem(label: "$e", value: e);
+              },
+            ).toList(),
+            selectionType: SelectionType.multi,
+            chipConfig: const ChipConfig(wrapType: WrapType.wrap),
+            dropdownHeight: 300,
+            optionTextStyle: const TextStyle(fontSize: 16),
+            selectedOptionIcon: const Icon(Icons.check_circle),
           ),
           SwitchListTile(
             value: true,
             onChanged: (value) {},
-            title: const Text("Accountant"),
+            title: ResponsiveText("Admin"),
           ),
           SwitchListTile(
             value: true,
             onChanged: (value) {},
-            title: const Text("Storage Manager"),
+            title: ResponsiveText("Accountant"),
           ),
           SwitchListTile(
             value: true,
             onChanged: (value) {},
-            title: const Text("Unit Storage Entry"),
+            title: ResponsiveText("Storage Manager"),
           ),
+          SwitchListTile(
+            value: true,
+            onChanged: (value) {},
+            title: ResponsiveText("Unit Storage Entry"),
+          ),
+          const SizedBox(
+            height: defaultPadding,
+          ),
+          ElevatedButton(onPressed: () {}, child: const Text("Save"))
         ],
       ),
     );

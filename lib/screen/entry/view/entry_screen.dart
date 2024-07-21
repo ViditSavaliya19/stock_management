@@ -43,14 +43,14 @@ class _EntryScreenState extends State<EntryScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              TextFormField(
-                initialValue: profileController.userModel.value.department!,
-                decoration: const InputDecoration(
-                  labelText: 'Company Name',
-                  border: OutlineInputBorder(),
-                ),
-                enabled: false,
-              ),
+              // TextFormField(
+              //   initialValue: profileController.userModel.value.department!,
+              //   decoration: const InputDecoration(
+              //     labelText: 'Company Name',
+              //     border: OutlineInputBorder(),
+              //   ),
+              //   enabled: false,
+              // ),
               const SizedBox(height: 20.0),
               Obx(
                 () => DropdownButtonFormField<String>(
@@ -190,16 +190,16 @@ class _EntryScreenState extends State<EntryScreen> {
     if (_formKey.currentState!.validate() && _selectedStockName != null) {
       int quantity = int.parse(_quantityController.text.trim());
 
-      EntryModel entryModel = EntryModel(
-          stockName: _selectedStockName!,
-          companyName: profileController.userModel.value.department!,
-          date: _selectedDate,
-          time: "${_selectedTime.hour}:${_selectedTime.minute}",
-          quantity: quantity,
-          unit: _selectedUnit!,
-          addEntryEmpName: profileController.userModel.value.name!);
-
-      await FireDbHelper.helper.addStockEntryToFirestore(entryModel);
+      // EntryModel entryModel = EntryModel(
+      //     stockName: _selectedStockName!,
+      //     companyName: profileController.userModel.value.department!,
+      //     date: _selectedDate,
+      //     time: "${_selectedTime.hour}:${_selectedTime.minute}",
+      //     quantity: quantity,
+      //     unit: _selectedUnit!,
+      //     addEntryEmpName: profileController.userModel.value.name!);
+      //
+      // await FireDbHelper.helper.addStockEntryToFirestore(entryModel);
 
     }
   }

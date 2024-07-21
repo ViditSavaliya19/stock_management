@@ -22,10 +22,7 @@ class _UserListScreenState extends State<UserListScreen> {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      appBar: AppBar(
-        title: const Text('User List'),
-        backgroundColor: Colors.lightBlue,
-      ),
+      backgroundColor: Colors.lightBlue[50],
       body: Obx(
         ()=> ListView.builder(
           itemCount: userController.userList.length,
@@ -39,13 +36,16 @@ class _UserListScreenState extends State<UserListScreen> {
                     title: Text('Email: ${userController.userList[index].email!}'),
                   ),
                   ListTile(
-                    title: Text('Department: ${userController.userList[index].department!}'),
+                    title: Text('Password: ${userController.userList[index].password!}'),
                   ),
                   ListTile(
                     title: Text('Mobile: ${userController.userList[index].mobile!}'),
                   ),
                   ListTile(
-                    title: Text('Access: ${userController.userList[index].access!}'),
+                    title: Text('Department: ${userController.userList[index].department}'),
+                  ),
+                  ListTile(
+                    title: Text('Designation : ${userController.userList[index].designation}'),
                   ),
                   ButtonBar(
                     children: <Widget>[

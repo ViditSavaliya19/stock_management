@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:srock_management/controller/MenuAppController.dart';
 import 'package:srock_management/utils/app_routes.dart';
 import 'firebase_options.dart';
 
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
+      theme: ThemeData(
+        colorSchemeSeed: Colors.white
+      ),
       routes: AppRoutes.routes,
     );
   }

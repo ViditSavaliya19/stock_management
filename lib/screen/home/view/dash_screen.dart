@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:srock_management/componets/headers.dart';
 import 'package:srock_management/utils/helper/firedb_helper.dart';
 
 import '../../entry/controller/entry_controller.dart';
@@ -9,16 +10,16 @@ import '../../profile/controller/profile_controller.dart';
 import '../../stock/controller/stock_controller.dart';
 import '../../stock/model/stock_model.dart';
 class DashScreen extends StatefulWidget {
-  const DashScreen({super.key});
+  const   DashScreen({super.key});
 
   @override
   State<DashScreen> createState() => _DashScreenState();
 }
 
 class _DashScreenState extends State<DashScreen> {
-  ProfileController profileController = Get.find();
+  ProfileController profileController = Get.put(ProfileController());
   EntryController entryController = Get.put(EntryController());
-  StockController stockController = Get.find();
+  StockController stockController = Get.put(StockController());
   final _formKey = GlobalKey<FormState>();
 
   String? _selectedStockName;
@@ -47,7 +48,7 @@ class _DashScreenState extends State<DashScreen> {
                 ),
                 const SizedBox(width: 8),
                 Visibility(
-                  visible: profileController!.userModel.value.access=="Admin",
+                  // visible: profileController!.userModel.value.access=="Admin",
                   child: Expanded(
                     child: Obx(
                           () => DropdownButtonFormField<String>(
@@ -322,16 +323,16 @@ class _DashScreenState extends State<DashScreen> {
     if (_formKey.currentState!.validate() && _selectedStockName != null) {
       int quantity = int.parse(_quantityController.text.trim());
 
-      EntryModel entryModel = EntryModel(
-          stockName: _selectedStockName!,
-          companyName: profileController.userModel.value.department!,
-          date: _selectedDate,
-          time: "${_selectedTime.hour}:${_selectedTime.minute}",
-          quantity: quantity,
-          unit: _selectedUnit!,
-          addEntryEmpName: profileController.userModel.value.name!);
-
-      FireDbHelper.helper.updateEntryStock(entryModel,docId);
+      // EntryModel entryModel = EntryModel(
+      //     stockName: _selectedStockName!,
+      //     companyName: profileController.userModel.value.department!,
+      //     date: _selectedDate,
+      //     time: "${_selectedTime.hour}:${_selectedTime.minute}",
+      //     quantity: quantity,
+      //     unit: _selectedUnit!,
+      //     addEntryEmpName: profileController.userModel.value.name!);
+      //
+      // FireDbHelper.helper.updateEntryStock(entryModel,docId);
     }
   }
 }

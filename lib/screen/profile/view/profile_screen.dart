@@ -43,12 +43,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 20.0),
             _buildProfileItem(Icons.email, 'Email', controller.userModel.value.email),
-            _buildProfileItem(
-                Icons.business, 'Department', controller.userModel.value.department),
+            // _buildProfileItem(Icons.business, 'Department', controller.userModel.value.department),
             _buildProfileItem(
                 Icons.phone, 'Mobile', controller.userModel.value.mobile),
-            _buildProfileItem(
-                Icons.security, 'Access Level', controller.userModel.value.access),
+            // _buildProfileItem(Icons.security, 'Access Level', controller.userModel.value.access),
           ],
         ),
       ),

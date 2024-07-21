@@ -33,7 +33,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.lightBlue[50],
         actions: [
           ElevatedButton.icon(
             onPressed: () => selectDate(context),
@@ -43,86 +42,86 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      drawer: Drawer(
-        backgroundColor: Colors.lightBlue[50],
-        child: Column(
-          children: [
-            Container(
-              height: 250,
-              alignment: Alignment.center,
-              child: Image.asset(
-                'assets/logo/logo.png',
-                height: 100,
-                width: 100,
-              ),
-            ),
-            ListTile(
-              onTap: () {
-                Get.toNamed('profile');
-              },
-              leading: const Icon(Icons.person),
-              title: const Text("Profile"),
-              trailing: const Icon(Icons.arrow_forward_ios),
-            ),
-            Obx(
-              () => Visibility(
-                visible: profileController.userModel.value.access == "Admin",
-                child: ListTile(
-                  onTap: () {
-                    Get.toNamed('newuser');
-                  },
-                  leading: const Icon(Icons.person_add_alt_1),
-                  title: const Text("Add New User"),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                ),
-              ),
-            ),
-            Obx(
-              () => Visibility(
-                visible: profileController.userModel.value.access == "Admin",
-                child: ListTile(
-                  onTap: () {
-                    Get.toNamed('users');
-                  },
-                  leading: const Icon(Icons.group),
-                  title: const Text("All Users"),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                ),
-              ),
-            ),
-            ListTile(
-              onTap: () {
-                Get.toNamed('profile');
-              },
-              leading: const Icon(Icons.person),
-              title: const Text("Profile"),
-              trailing: const Icon(Icons.arrow_forward_ios),
-            ),
-            Obx(
-              () => Visibility(
-                visible: profileController.userModel.value.access == "Admin",
-                child: ListTile(
-                  onTap: () {
-                    Get.toNamed('settings');
-                  },
-                  leading: const Icon(Icons.settings),
-                  title: const Text("Settings"),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                ),
-              ),
-            ),
-            const Spacer(),
-            ListTile(
-              onTap: () {
-                AuthHelper.helper.signOut();
-                Get.offAllNamed('login');
-              },
-              leading: const Icon(Icons.login),
-              title: const Text("Sign Out"),
-            ),
-          ],
-        ),
-      ),
+      // drawer: Drawer(
+      //   backgroundColor: Colors.lightBlue[50],
+      //   child: Column(
+      //     children: [
+      //       Container(
+      //         height: 250,
+      //         alignment: Alignment.center,
+      //         child: Image.asset(
+      //           'assets/logo/logo.png',
+      //           height: 100,
+      //           width: 100,
+      //         ),
+      //       ),
+      //       ListTile(
+      //         onTap: () {
+      //           Get.toNamed('profile');
+      //         },
+      //         leading: const Icon(Icons.person),
+      //         title: const Text("Profile"),
+      //         trailing: const Icon(Icons.arrow_forward_ios),
+      //       ),
+      //       Obx(
+      //         () => Visibility(
+      //           visible: profileController.userModel.value.access == "Admin",
+      //           child: ListTile(
+      //             onTap: () {
+      //               Get.toNamed('newuser');
+      //             },
+      //             leading: const Icon(Icons.person_add_alt_1),
+      //             title: const Text("Add New User"),
+      //             trailing: const Icon(Icons.arrow_forward_ios),
+      //           ),
+      //         ),
+      //       ),
+      //       Obx(
+      //         () => Visibility(
+      //           visible: profileController.userModel.value.access == "Admin",
+      //           child: ListTile(
+      //             onTap: () {
+      //               Get.toNamed('users');
+      //             },
+      //             leading: const Icon(Icons.group),
+      //             title: const Text("All Users"),
+      //             trailing: const Icon(Icons.arrow_forward_ios),
+      //           ),
+      //         ),
+      //       ),
+      //       ListTile(
+      //         onTap: () {
+      //           Get.toNamed('profile');
+      //         },
+      //         leading: const Icon(Icons.person),
+      //         title: const Text("Profile"),
+      //         trailing: const Icon(Icons.arrow_forward_ios),
+      //       ),
+      //       Obx(
+      //         () => Visibility(
+      //           visible: profileController.userModel.value.access == "Admin",
+      //           child: ListTile(
+      //             onTap: () {
+      //               Get.toNamed('settings');
+      //             },
+      //             leading: const Icon(Icons.settings),
+      //             title: const Text("Settings"),
+      //             trailing: const Icon(Icons.arrow_forward_ios),
+      //           ),
+      //         ),
+      //       ),
+      //       const Spacer(),
+      //       ListTile(
+      //         onTap: () {
+      //           AuthHelper.helper.signOut();
+      //           Get.offAllNamed('login');
+      //         },
+      //         leading: const Icon(Icons.login),
+      //         title: const Text("Sign Out"),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.toNamed('entry');
@@ -135,10 +134,10 @@ class _HomeScreenState extends State<HomeScreen> {
         currentIndex: i,
         onTap: (value) {
           setState(() {
-            if(profileController.userModel.value.access=="Admin")
-              {
-                i=value;
-              }
+            // if(profileController.userModel.value.access=="Admin")
+            //   {
+            //     i=value;
+            //   }
           });
         },
         items: const [

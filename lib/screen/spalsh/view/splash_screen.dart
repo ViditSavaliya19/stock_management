@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:srock_management/screen/profile/controller/profile_controller.dart';
+import 'package:srock_management/screen/spalsh/controller/spalsh_controller.dart';
 import 'package:srock_management/utils/helper/auth_helper.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,11 +16,14 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
   ProfileController controller = Get.put(ProfileController());
+  SplashController splashController = Get.put(SplashController());
 
   @override
   void initState() {
     super.initState();
     bool isLogin = AuthHelper.helper.currentUser();
+
+    splashController.getCompanyList();
 
     if(isLogin)
       {
@@ -28,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Timer(
       const Duration(seconds: 3),
-      () => Get.offAllNamed(isLogin?'home':'login'),
+      () => Get.offAllNamed(isLogin?'app':'login'),
     );
   }
 

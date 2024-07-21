@@ -129,7 +129,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
 
       if (isLogin != null && isLogin) {
-        Get.offAllNamed('home');
+        Get.offAllNamed('app');
       }
     }
   }

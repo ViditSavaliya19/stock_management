@@ -10,7 +10,7 @@ import '../model/entry_model.dart';
 class EntryController {
   RxMap<String, AnalysisModel> analysisList = <String, AnalysisModel>{}.obs;
   ProfileController profileController = Get.find();
-  StockController stockController = Get.find();
+  StockController stockController = Get.put(StockController());
   RxList<EntryModel> entryList = <EntryModel>[].obs;
   List<EntryModel> allEntryBackUpList = <EntryModel>[];
   final List<String> companies = ["All", "Mahad", "Karunesh", "Soham", "Ansh"];
@@ -25,23 +25,25 @@ class EntryController {
       },
     );
   }
+  // Dashboard stock show
 
   void filterStocks() {
     entryList.value = allEntryBackUpList;
-    entryList.value = allEntryBackUpList.where((stock) {
-      bool matchesDate = DateFormat('yyyy-MM-dd').format(startDate.value) ==
-          DateFormat('yyyy-MM-dd').format(stock.date);
-      bool matchesCompany = selectedCompany.trim() == "All" ||
-          stock.companyName.trim() == selectedCompany.trim();
-      bool empCompany = profileController.userModel.value.department!.trim() ==
-          stock.companyName.trim();
-
-      if (profileController.userModel.value.access != "Admin") {
-        return matchesDate && matchesCompany && empCompany;
-      } else {
-        return matchesDate && matchesCompany;
-      }
-    }).toList();
+    // entryList.value = allEntryBackUpList.where((stock) {
+    //   bool matchesDate = DateFormat('yyyy-MM-dd').format(startDate.value) ==
+    //       DateFormat('yyyy-MM-dd').format(stock.date);
+    //   bool matchesCompany = selectedCompany.trim() == "All" ||
+    //       stock.companyName.trim() == selectedCompany.trim();
+    //   bool empCompany = profileController.userModel.value.department!.trim() ==
+    //       stock.companyName.trim();
+    //
+    //
+    //   // if (profileController.userModel.value.access != "Admin") {
+    //   //   return matchesDate && matchesCompany && empCompany;
+    //   // } else {
+    //   //   return matchesDate && matchesCompany;
+    //   // }
+    // }).toList();
     stockWiseEntry();
   }
 
