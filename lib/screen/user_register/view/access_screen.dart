@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:srock_management/componets/alert/permission_alert.dart';
+import 'package:srock_management/screen/spalsh/controller/spalsh_controller.dart';
+import 'package:srock_management/screen/user_register/controller/user_controller.dart';
 
 import '../../../utils/constants.dart';
 
@@ -12,7 +15,10 @@ class AccessScreen extends StatefulWidget {
 }
 
 class _AccessScreenState extends State<AccessScreen> {
-  String? _selectedDepartment;
+  SplashController controller = Get.put(SplashController());
+  UserController userController = Get.put(UserController());
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +52,18 @@ class _AccessScreenState extends State<AccessScreen> {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 5,
+                  itemCount: controller.designationList.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      title: const Text("Admin"),
+                      title: Text("${controller.designationList[index].desiName}"),
                       trailing: IconButton(
                           onPressed: () {
+                            userController.selectedDesignationIndex = index;
+                            userController.assignPermissionList();
                             showDialog(
                               context: context,
-                              builder: (context) => const AlertDialog(
-                                title: Text("Assign Access"),
+                              builder: (context) => AlertDialog(
+                                title: const Text("Assign Access"),
                                 content: PermissionAlert(),
                               ),
                             );

@@ -24,11 +24,12 @@ class _SplashScreenState extends State<SplashScreen> {
     bool isLogin = AuthHelper.helper.currentUser();
 
     splashController.getCompanyList();
+    splashController.getDesignationList();
 
     if(isLogin)
-      {
-          controller.getProfileData();
-      }
+    {
+        controller.getProfileData();
+    }
 
     Timer(
       const Duration(seconds: 3),

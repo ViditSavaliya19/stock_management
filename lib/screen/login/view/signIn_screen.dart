@@ -120,15 +120,13 @@ class _SignInScreenState extends State<SignInScreen> {
     if (_formKey.currentState!.validate()) {
       // Form is valid, perform login action
 
-      bool? isLogin = await AuthHelper.helper
+      await AuthHelper.helper
           .signInEmailPassword(_emailController.text, _passwordController.text);
 
-      AuthHelper.helper.currentUser();
+      bool? isLogin = AuthHelper.helper.currentUser();
 
-      await profileController.getProfileData();
-
-
-      if (isLogin != null && isLogin) {
+      if (isLogin) {
+        await profileController.getProfileData();
         Get.offAllNamed('app');
       }
     }

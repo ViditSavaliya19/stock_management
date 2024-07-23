@@ -51,7 +51,8 @@ class _UserListScreenState extends State<UserListScreen> {
                     children: <Widget>[
                       TextButton(
                         onPressed: () {
-                          showAccessPermissionAlert(context);
+                          userController.selectedUserIndex = index;
+                          showAccessPermissionAlert(context:context,);
                         },
                         child: const Text('Access (Permission)'),
                       ),

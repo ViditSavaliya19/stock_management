@@ -1,42 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:srock_management/screen/user_register/controller/user_controller.dart';
 
 class PermissionAlert extends StatelessWidget {
-  const PermissionAlert({super.key});
+  PermissionAlert({super.key});
+
+  UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SwitchListTile(
-          value: true,
-          onChanged: (value) {},
-          title: const Text("New Unit(Company) Add Access"),
+        Expanded(
+          child: Obx(
+            () =>  Column(
+              children: List.generate(
+                userController.detailPermissionList.length,
+                (index) => SwitchListTile(
+                  value: userController.detailPermissionList[index].permission ?? false ,
+                  onChanged: (value) {
+                    var desi = userController.detailPermissionList[index];
+                    desi.permission =value;
+                    userController.detailPermissionList[index] =desi;
+
+                    Get.back();
+                  },
+                  title: Text("${userController.detailPermissionList[index].permissionName}"),
+                ),
+              ),
+            ),
+          ),
         ),
-        SwitchListTile(
-          value: true,
-          onChanged: (value) {},
-          title: const Text("Show All User Access"),
-        ),
-        SwitchListTile(
-          value: true,
-          onChanged: (value) {},
-          title: const Text("Show All User Access"),
-        ),
-        SwitchListTile(
-          value: true,
-          onChanged: (value) {},
-          title: const Text("Add Stock Entry Access"),
-        ),
-        SwitchListTile(
-          value: true,
-          onChanged: (value) {},
-          title: const Text("Show All Company Stock Access"),
-        ),
-        SwitchListTile(
-          value: true,
-          onChanged: (value) {},
-          title: const Text("Only Show Company Wise Stock Access"),
-        ),
+        ElevatedButton(onPressed: () {
+              userController.updateDesignation();
+        }, child: const Text("Save"))
       ],
     );
   }
