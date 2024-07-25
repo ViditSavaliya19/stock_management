@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:srock_management/componets/headers.dart';
-import 'package:srock_management/screen/home/view/dash_screen.dart';
 import 'package:srock_management/screen/home/view/home_screen.dart';
+import 'package:srock_management/screen/profile/view/profile_screen.dart';
 import 'package:srock_management/screen/settings/settings_screen.dart';
 import 'package:srock_management/screen/stock/view/stock_screen.dart';
 import 'package:srock_management/screen/user_register/view/user_screen.dart';
-import 'package:srock_management/screen/user_register/view/userlist_screen.dart';
 import '../controller/MenuAppController.dart';
 import '../utils/Responsive.dart';
 import 'components/side_menu.dart';
@@ -44,13 +43,15 @@ class _AppScreenState extends State<AppScreen> {
                     child: Obx(
                       () {
                         if (controller.selectedMenuIndex.value == 0) {
-                          return HomeScreen();
-                        } else if (controller.selectedMenuIndex.value == 1)
-                          return UserScreen();
+                          return const HomeScreen();
+                        }else if (controller.selectedMenuIndex.value == 1)
+                          return const ProfileScreen();
                         else if (controller.selectedMenuIndex.value == 2)
-                          return StockScreen();
+                          return const UserScreen();
+                        else if (controller.selectedMenuIndex.value == 3)
+                          return const StockScreen();
                         else
-                          return SettingsScreen();
+                          return const SettingsScreen();
                       },
                     ),
                   ),

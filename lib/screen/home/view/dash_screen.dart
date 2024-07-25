@@ -4,13 +4,15 @@ import 'package:intl/intl.dart';
 import 'package:srock_management/componets/headers.dart';
 import 'package:srock_management/utils/helper/firedb_helper.dart';
 
+import '../../../utils/constants.dart';
 import '../../entry/controller/entry_controller.dart';
 import '../../entry/model/entry_model.dart';
 import '../../profile/controller/profile_controller.dart';
 import '../../stock/controller/stock_controller.dart';
 import '../../stock/model/stock_model.dart';
+
 class DashScreen extends StatefulWidget {
-  const   DashScreen({super.key});
+  const DashScreen({super.key});
 
   @override
   State<DashScreen> createState() => _DashScreenState();
@@ -29,7 +31,6 @@ class _DashScreenState extends State<DashScreen> {
   final List<String> _units = ['kg', 'tonne']; // Units for selection
   String? _selectedUnit = 'kg'; // Default unit
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,11 +48,16 @@ class _DashScreenState extends State<DashScreen> {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Visibility(
-                  // visible: profileController!.userModel.value.access=="Admin",
-                  child: Expanded(
-                    child: Obx(
-                          () => DropdownButtonFormField<String>(
+                //Assign Permission Designation wise
+                Obx(
+                  () => Visibility(
+                    visible: profileController
+                        .splashController.currentPermission
+                        .contains(PERMISSION_1) || profileController
+                        .splashController.currentPermission
+                        .contains(PERMISSION_3),
+                    child: Expanded(
+                      child: DropdownButtonFormField<String>(
                         value: entryController.selectedCompany.value,
                         items: entryController.companies.map((String company) {
                           return DropdownMenuItem<String>(
@@ -76,7 +82,7 @@ class _DashScreenState extends State<DashScreen> {
           ),
           Expanded(
             child: Obx(
-                  () => ListView.builder(
+              () => ListView.builder(
                 itemCount: entryController.entryList.length,
                 itemBuilder: (context, index) {
                   EntryModel stock = entryController.entryList[index];
@@ -101,23 +107,37 @@ class _DashScreenState extends State<DashScreen> {
                         title: Text(
                             'Entry Person Stock: ${stock.addEntryEmpName}'),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.blue),
-                            onPressed: ()  {
-                              updateEntryDialog(stock);
-                            },
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                            onPressed: ()  {
-
-                              FireDbHelper.helper.deleteEntryStock(stock.docId!);
-                            },
-                          ),
-                        ],
+                      //Assign Permission Designation wise
+                      Visibility(
+                        visible: profileController
+                                .splashController.currentPermission
+                                .contains(PERMISSION_1) ||
+                            profileController.splashController.currentPermission
+                                .contains(PERMISSION_4),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Visibility(
+                              visible:profileController.userModel.value.department![0]==entryController.entryList[index].companyName,
+                              child: IconButton(
+                                icon: const Icon(Icons.edit, color: Colors.blue),
+                                onPressed: () {
+                                  updateEntryDialog(stock);
+                                },
+                              ),
+                            ),
+                            Visibility(
+                              visible:profileController.userModel.value.department![0]==entryController.entryList[index].companyName,
+                              child: IconButton(
+                                icon: const Icon(Icons.delete, color: Colors.red),
+                                onPressed: () {
+                                  FireDbHelper.helper
+                                      .deleteEntryStock(stock.docId!);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   );
@@ -129,6 +149,7 @@ class _DashScreenState extends State<DashScreen> {
       ),
     );
   }
+
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -142,16 +163,16 @@ class _DashScreenState extends State<DashScreen> {
     });
   }
 
-  void updateEntryDialog(EntryModel entryModel)
-  {
-
-    _selectedStockName = entryModel.stockName=="All"?null:entryModel.stockName;
+  void updateEntryDialog(EntryModel entryModel) {
+    _selectedStockName =
+        entryModel.stockName == "All" ? null : entryModel.stockName;
 
     print("${_selectedStockName}");
     _quantityController.text = entryModel.quantity.toString();
     _selectedUnit = entryModel.unit;
-    List timeList  = entryModel.time.split(":");
-    _selectedTime = TimeOfDay(hour:int.parse( timeList[0]), minute: int.parse( timeList[1]));
+    List timeList = entryModel.time.split(":");
+    _selectedTime =
+        TimeOfDay(hour: int.parse(timeList[0]), minute: int.parse(timeList[1]));
     _selectedDate = entryModel.date;
 
     Get.defaultDialog(
@@ -171,7 +192,7 @@ class _DashScreenState extends State<DashScreen> {
               ),
               const SizedBox(height: 20.0),
               Obx(
-                    () => DropdownButtonFormField<String>(
+                () => DropdownButtonFormField<String>(
                   value: _selectedStockName,
                   items: stockController.stockList.map((StockModel stock) {
                     return DropdownMenuItem<String>(
@@ -254,7 +275,7 @@ class _DashScreenState extends State<DashScreen> {
                     child: ElevatedButton.icon(
                       icon: const Icon(Icons.calendar_today),
                       label:
-                      Text(DateFormat('yyyy-MM-dd').format(_selectedDate)),
+                          Text(DateFormat('yyyy-MM-dd').format(_selectedDate)),
                       onPressed: () => _selectDate(context),
                     ),
                   ),
@@ -286,14 +307,12 @@ class _DashScreenState extends State<DashScreen> {
             if (_formKey.currentState!.validate()) {
               // Retrieve the form data
               _submitForm(entryModel.docId!);
-
             }
           },
         ),
       ],
     );
   }
-
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -311,7 +330,7 @@ class _DashScreenState extends State<DashScreen> {
 
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked =
-    await showTimePicker(context: context, initialTime: _selectedTime);
+        await showTimePicker(context: context, initialTime: _selectedTime);
     if (picked != null && picked != _selectedTime) {
       setState(() {
         _selectedTime = picked;

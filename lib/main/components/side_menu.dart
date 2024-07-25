@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:srock_management/utils/constants.dart';
 import 'package:srock_management/utils/helper/auth_helper.dart';
 
 import '../../controller/MenuAppController.dart';
+import '../../screen/spalsh/controller/spalsh_controller.dart';
 
 class SideMenu extends StatelessWidget {
   SideMenu({
@@ -10,6 +12,7 @@ class SideMenu extends StatelessWidget {
   }) : super(key: key);
 
   MenuAppController controller = Get.find();
+  SplashController splashController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -24,37 +27,50 @@ class SideMenu extends StatelessWidget {
             title: "Dashboard",
             icon: Icons.home,
             press: () {
-              controller.selectedMenuIndex.value =0;
+              controller.selectedMenuIndex.value = 0;
             },
           ),
           DrawerListTile(
-            title: "User",
+            title: "Profile",
             icon: Icons.account_circle,
             press: () {
-              controller.selectedMenuIndex.value =1;
+              controller.selectedMenuIndex.value = 1;
             },
           ),
-          DrawerListTile(
-            title: "Stock",
-            icon: Icons.business_center,
-            press: () {
-              controller.selectedMenuIndex.value =2;
-            },
+          Visibility(
+            visible: splashController.currentPermission.contains(PERMISSION_1),
+            child: DrawerListTile(
+              title: "User",
+              icon: Icons.account_circle,
+              press: () {
+                controller.selectedMenuIndex.value = 2;
+              },
+            ),
+          ),
+          Visibility(
+            visible: splashController.currentPermission.contains(PERMISSION_1),
+            child: DrawerListTile(
+              title: "Stock",
+              icon: Icons.business_center,
+              press: () {
+                controller.selectedMenuIndex.value =3;
+              },
+            ),
           ),
           DrawerListTile(
             title: "Settings",
             icon: Icons.settings,
             press: () {
-              controller.selectedMenuIndex.value =3;
+              controller.selectedMenuIndex.value = 4;
             },
           ),
-          ListTile(
-            onTap: () {
+          DrawerListTile(
+            title: "Sign Out",
+            icon: Icons.login,
+            press: () {
               AuthHelper.helper.signOut();
               Get.offAllNamed('login');
             },
-            leading: const Icon(Icons.login),
-            title: const Text("Sign Out"),
           ),
 
         ],

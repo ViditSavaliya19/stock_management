@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:srock_management/model/user_model.dart';
 import 'package:srock_management/screen/spalsh/controller/spalsh_controller.dart';
 import 'package:srock_management/utils/helper/firedb_helper.dart';
+import 'package:srock_management/utils/helper/permission_helper.dart';
 
 import '../model/permission_model.dart';
 
@@ -73,24 +74,7 @@ class UserController extends GetxController {
   // Get selected Designation wise detail permission
   void assignPermissionList() {
     //everyTime assign when permission dialog assign
-    var l1 = [
-      PermissionModel(
-          permissionId: "permission_1",
-          permissionName: "Add & display users",
-          permission: false),
-      PermissionModel(
-          permissionId: "permission_2",
-          permissionName: "Daily total stock quantity category wise",
-          permission: false),
-      PermissionModel(
-          permissionId: "permission_3",
-          permissionName: "Only visible all company stock",
-          permission: false),
-      PermissionModel(
-          permissionId: "permission_4",
-          permissionName: "Add & display stock of assign company",
-          permission: false),
-    ];
+    var l1 = PermissionHelper.helper.defaultPermissionList;
 
     var selectedDesi =
         splashController.designationList[selectedDesignationIndex];

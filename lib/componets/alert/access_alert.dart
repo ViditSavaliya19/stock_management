@@ -27,7 +27,7 @@ class AccessAlert extends StatelessWidget {
     super.key,
   });
 
-  SplashController splashController = Get.put(SplashController());
+  SplashController splashController = Get.find();
   UserController userController = Get.put(UserController())
     ..assignAccessList()
     ..getUserCompany();

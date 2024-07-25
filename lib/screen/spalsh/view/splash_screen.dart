@@ -15,27 +15,23 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  ProfileController controller = Get.put(ProfileController());
   SplashController splashController = Get.put(SplashController());
+  ProfileController controller = Get.put(ProfileController());
 
   @override
   void initState() {
     super.initState();
     bool isLogin = AuthHelper.helper.currentUser();
 
-    splashController.getCompanyList();
-    splashController.getDesignationList();
-
-    if(isLogin)
-    {
-        controller.getProfileData();
+    if (isLogin) {
+      controller.getProfileData();
     }
-
     Timer(
       const Duration(seconds: 3),
-      () => Get.offAllNamed(isLogin?'app':'login'),
+          () => Get.offAllNamed(isLogin ? 'app' : 'login'),
     );
   }
+
 
   @override
   Widget build(BuildContext context) {

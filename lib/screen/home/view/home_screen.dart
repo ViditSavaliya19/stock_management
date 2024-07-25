@@ -6,6 +6,7 @@ import 'package:srock_management/screen/home/view/analysis_screen.dart';
 import 'package:srock_management/screen/home/view/dash_screen.dart';
 import 'package:srock_management/screen/profile/controller/profile_controller.dart';
 import 'package:srock_management/screen/stock/controller/stock_controller.dart';
+import 'package:srock_management/utils/constants.dart';
 import 'package:srock_management/utils/helper/auth_helper.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ProfileController profileController = Get.find();
   StockController stockController = Get.put(StockController());
   EntryController entryController = Get.put(EntryController());
-  int i =0;
+  int i = 0;
 
   @override
   void initState() {
@@ -122,31 +123,42 @@ class _HomeScreenState extends State<HomeScreen> {
       //     ],
       //   ),
       // ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed('entry');
-        },
-        backgroundColor: Colors.lightBlue[50],
-        child: const Icon(Icons.add),
+      floatingActionButton: Visibility(
+        visible: !(profileController.splashController.currentPermission.length==1 &&  profileController.splashController.currentPermission.contains(PERMISSION_3)),
+        child: FloatingActionButton(
+          onPressed: () {
+            Get.toNamed('entry');
+          },
+          backgroundColor: Colors.lightBlue[50],
+          child: const Icon(Icons.add),
+        ),
       ),
-      body: [const DashScreen(),const AnalysisScreen()][i] ,
+      body: [const DashScreen(), const AnalysisScreen()][i],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: i,
         onTap: (value) {
           setState(() {
-            // if(profileController.userModel.value.access=="Admin")
-            //   {
-            //     i=value;
-            //   }
+            //Assign Permission Designation wise
+
+            if (profileController.splashController.currentPermission
+                    .contains(PERMISSION_1) ||
+                profileController.splashController.currentPermission
+                    .contains(PERMISSION_3)) {
+              i = value;
+            }
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home),label: "Home",),
-          BottomNavigationBarItem(icon: Icon(Icons.balance),label: "Balance"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.balance), label: "Balance"),
         ],
       ),
     );
   }
+
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -159,5 +171,4 @@ class _HomeScreenState extends State<HomeScreen> {
       entryController.filterStocks();
     });
   }
-
 }

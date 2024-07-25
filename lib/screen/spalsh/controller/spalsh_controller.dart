@@ -6,6 +6,14 @@ import 'package:srock_management/utils/helper/firedb_helper.dart';
 class SplashController extends GetxController {
   RxList companyList = [].obs;
   RxList<DesignationModel> designationList = <DesignationModel>[].obs;
+  RxList currentPermission =[].obs;
+
+  @override
+  void onInit() {
+    getCompanyList();
+    getDesignationList();
+    super.onInit();
+  }
 
   Future<void> getCompanyList() async {
     QuerySnapshot doc = await FireDbHelper.helper.getCompanyNameList();

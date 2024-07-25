@@ -190,16 +190,16 @@ class _EntryScreenState extends State<EntryScreen> {
     if (_formKey.currentState!.validate() && _selectedStockName != null) {
       int quantity = int.parse(_quantityController.text.trim());
 
-      // EntryModel entryModel = EntryModel(
-      //     stockName: _selectedStockName!,
-      //     companyName: profileController.userModel.value.department!,
-      //     date: _selectedDate,
-      //     time: "${_selectedTime.hour}:${_selectedTime.minute}",
-      //     quantity: quantity,
-      //     unit: _selectedUnit!,
-      //     addEntryEmpName: profileController.userModel.value.name!);
-      //
-      // await FireDbHelper.helper.addStockEntryToFirestore(entryModel);
+      EntryModel entryModel = EntryModel(
+          stockName: _selectedStockName!,
+          companyName: profileController.userModel.value.department![0],
+          date: _selectedDate,
+          time: "${_selectedTime.hour}:${_selectedTime.minute}",
+          quantity: quantity,
+          unit: _selectedUnit!,
+          addEntryEmpName: profileController.userModel.value.name!);
+
+      await FireDbHelper.helper.addStockEntryToFireStore(entryModel);
 
     }
   }

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:srock_management/screen/entry/model/analysis_model.dart';
 import 'package:srock_management/screen/profile/controller/profile_controller.dart';
 import 'package:srock_management/screen/stock/controller/stock_controller.dart';
+import 'package:srock_management/utils/constants.dart';
 import 'package:srock_management/utils/helper/firedb_helper.dart';
 
 import '../model/entry_model.dart';
@@ -25,28 +26,42 @@ class EntryController {
       },
     );
   }
+
   // Dashboard stock show
 
   void filterStocks() {
-    entryList.value = allEntryBackUpList;
-    // entryList.value = allEntryBackUpList.where((stock) {
-    //   bool matchesDate = DateFormat('yyyy-MM-dd').format(startDate.value) ==
-    //       DateFormat('yyyy-MM-dd').format(stock.date);
-    //   bool matchesCompany = selectedCompany.trim() == "All" ||
-    //       stock.companyName.trim() == selectedCompany.trim();
-    //   bool empCompany = profileController.userModel.value.department!.trim() ==
-    //       stock.companyName.trim();
-    //
-    //
-    //   // if (profileController.userModel.value.access != "Admin") {
-    //   //   return matchesDate && matchesCompany && empCompany;
-    //   // } else {
-    //   //   return matchesDate && matchesCompany;
-    //   // }
-    // }).toList();
+    //For all entry
+    // entryList.value = allEntryBackUpList;
+
+    //For Filter
+    if (profileController.splashController.currentPermission
+            .contains(PERMISSION_1) ||
+        profileController.splashController.currentPermission
+            .contains(PERMISSION_3)) {
+      entryList.value = allEntryBackUpList.where((stock) {
+        bool matchesDate = DateFormat('yyyy-MM-dd').format(startDate.value) ==
+            DateFormat('yyyy-MM-dd').format(stock.date);
+        bool matchesCompany = selectedCompany.trim() == "All" ||
+            stock.companyName.trim() == selectedCompany.trim();
+
+        return matchesDate && matchesCompany;
+      }).toList();
+    } else {
+      entryList.value = allEntryBackUpList.where((stock) {
+        bool matchesDate = DateFormat('yyyy-MM-dd').format(startDate.value) ==
+            DateFormat('yyyy-MM-dd').format(stock.date);
+        bool empCompany = profileController.userModel.value.department!
+            .contains(stock.companyName.trim());
+
+        // if (profileController.userModel.value.access != "Admin") {
+        return matchesDate  && empCompany;
+        // } else {
+        // return matchesDate && matchesCompany;
+        // }
+      }).toList();
+    }
     stockWiseEntry();
   }
-
 
   void stockWiseEntry() {
     Map<String, AnalysisModel> temp = {};
