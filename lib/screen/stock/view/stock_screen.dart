@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:srock_management/componets/widgets/ResponsiveText.dart';
 import 'package:srock_management/screen/stock/controller/stock_controller.dart';
 import 'package:srock_management/screen/stock/model/stock_model.dart';
+import 'package:srock_management/utils/constants.dart';
 import 'package:srock_management/utils/helper/firedb_helper.dart';
 
 class StockScreen extends StatefulWidget {
@@ -27,14 +29,13 @@ class _StockScreenState extends State<StockScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Stock'),
-        backgroundColor: Colors.lightBlue,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            ResponsiveText("Add Stock",weight: FontWeight.bold,webFontSize: 20,),
+            const SizedBox(height: 10,),
             Form(
               key: _formKey,
               child: Column(
@@ -61,6 +62,7 @@ class _StockScreenState extends State<StockScreen> {
                 ],
               ),
             ),
+            const SizedBox(height: 10,),
             Expanded(
               child: Obx(
                 () => ListView.builder(

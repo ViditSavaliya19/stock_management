@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:srock_management/componets/alert/access_alert.dart';
 import 'package:srock_management/screen/user_register/controller/user_controller.dart';
+import 'package:srock_management/utils/helper/firedb_helper.dart';
 class UserListScreen extends StatefulWidget {
   const UserListScreen({super.key});
 
@@ -56,12 +57,19 @@ class _UserListScreenState extends State<UserListScreen> {
                         },
                         child: const Text('Access (Permission)'),
                       ),
+                      // TextButton(
+                      //   onPressed: () {
+                      //
+                      //     // this method work as insert or update both
+                      //     FireDbHelper.helper.createNewUser(model: );
+                      //
+                      //   },
+                      //   child: const Text('Update'),
+                      // ),
                       TextButton(
-                        onPressed: () {},
-                        child: const Text('Update'),
-                      ),
-                      TextButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          FireDbHelper.helper.deleteUser(uid: userController.userList[index].uid!);
+                        },
                         child: const Text('Delete'),
                       ),
                     ],

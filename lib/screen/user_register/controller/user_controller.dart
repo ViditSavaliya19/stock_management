@@ -73,8 +73,9 @@ class UserController extends GetxController {
 
   // Get selected Designation wise detail permission
   void assignPermissionList() {
+    detailPermissionList.clear();
     //everyTime assign when permission dialog assign
-    var l1 = PermissionHelper.helper.defaultPermissionList;
+    List<PermissionModel> l1 = List.from(PermissionHelper.helper.defaultPermissionList);
 
     var selectedDesi =
         splashController.designationList[selectedDesignationIndex];
@@ -86,7 +87,7 @@ class UserController extends GetxController {
       }
     }
 
-    detailPermissionList.value = l1;
+    detailPermissionList.value = List.from(l1);
   }
 
   // Update designation Permission

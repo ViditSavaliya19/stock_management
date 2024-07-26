@@ -24,6 +24,11 @@ class FireDbHelper {
     await fireStore.collection('users').doc(model.uid).set(model.toFireStore());
   }
 
+  // delete user by Admin Function (Add / Update)
+  Future<void> deleteUser({required String uid}) async {
+    await fireStore.collection('users').doc(uid).delete();
+  }
+
   // Get Profile (SplashScreen & SignIn Screen)
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserProfileData(uid) {
     return fireStore.collection("users").doc(uid).get();

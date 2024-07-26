@@ -5,6 +5,7 @@ import 'package:srock_management/utils/helper/auth_helper.dart';
 
 import '../../controller/MenuAppController.dart';
 import '../../screen/spalsh/controller/spalsh_controller.dart';
+import '../../utils/Responsive.dart';
 
 class SideMenu extends StatelessWidget {
   SideMenu({
@@ -28,6 +29,10 @@ class SideMenu extends StatelessWidget {
             icon: Icons.home,
             press: () {
               controller.selectedMenuIndex.value = 0;
+              if(Responsive.isMobile(context))
+                {
+                  Get.back();
+                }
             },
           ),
           DrawerListTile(
@@ -35,6 +40,10 @@ class SideMenu extends StatelessWidget {
             icon: Icons.account_circle,
             press: () {
               controller.selectedMenuIndex.value = 1;
+              if(Responsive.isMobile(context))
+              {
+                Get.back();
+              }
             },
           ),
           Visibility(
@@ -44,6 +53,10 @@ class SideMenu extends StatelessWidget {
               icon: Icons.account_circle,
               press: () {
                 controller.selectedMenuIndex.value = 2;
+                if(Responsive.isMobile(context))
+                {
+                  Get.back();
+                }
               },
             ),
           ),
@@ -54,15 +67,26 @@ class SideMenu extends StatelessWidget {
               icon: Icons.business_center,
               press: () {
                 controller.selectedMenuIndex.value =3;
+                if(Responsive.isMobile(context))
+                {
+                  Get.back();
+                }
               },
             ),
           ),
-          DrawerListTile(
-            title: "Settings",
-            icon: Icons.settings,
-            press: () {
-              controller.selectedMenuIndex.value = 4;
-            },
+          Visibility(
+            visible: splashController.currentPermission.contains(PERMISSION_1),
+            child: DrawerListTile(
+              title: "Settings",
+              icon: Icons.settings,
+              press: () {
+                controller.selectedMenuIndex.value = 4;
+                if(Responsive.isMobile(context))
+                {
+                  Get.back();
+                }
+              },
+            ),
           ),
           DrawerListTile(
             title: "Sign Out",

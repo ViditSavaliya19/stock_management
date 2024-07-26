@@ -23,7 +23,6 @@ class PermissionAlert extends StatelessWidget {
                     desi.permission =value;
                     userController.detailPermissionList[index] =desi;
 
-                    Get.back();
                   },
                   title: Text("${userController.detailPermissionList[index].permissionName}"),
                 ),
@@ -33,6 +32,8 @@ class PermissionAlert extends StatelessWidget {
         ),
         ElevatedButton(onPressed: () {
               userController.updateDesignation();
+              Get.back();
+
         }, child: const Text("Save"))
       ],
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:srock_management/screen/login/controller/login_controller.dart';
 import 'package:srock_management/screen/profile/controller/profile_controller.dart';
+import 'package:srock_management/utils/constants.dart';
 import 'package:srock_management/utils/helper/auth_helper.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -22,7 +23,6 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue[50],
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
@@ -31,22 +31,22 @@ class _SignInScreenState extends State<SignInScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const CircleAvatar(
+                 CircleAvatar(
                   radius: 60.0,
                   backgroundColor: Colors.white,
                   child: Icon(
                     Icons.person,
                     size: 60.0,
-                    color: Colors.lightBlue,
+                    color: greenColor,
                   ),
                 ),
                 const SizedBox(height: 20.0),
-                const Text(
+                Text(
                   'Welcome Back!',
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
-                    color: Colors.lightBlue,
+                    color: greenColor,
                   ),
                 ),
                 const SizedBox(height: 20.0),
@@ -55,7 +55,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   decoration: InputDecoration(
                     hintText: 'Email',
                     prefixIcon:
-                        const Icon(Icons.email, color: Colors.lightBlue),
+                         Icon(Icons.email, color: greenColor),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -71,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   obscureText: true,
                   decoration: InputDecoration(
                     hintText: 'Password',
-                    prefixIcon: const Icon(Icons.lock, color: Colors.lightBlue),
+                    prefixIcon:  Icon(Icons.lock, color: greenColor),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -85,7 +85,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ElevatedButton(
                   onPressed: _submitForm,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.lightBlue,
+                    backgroundColor: greenColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
                     ),
@@ -100,10 +100,10 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(height: 20.0),
                 TextButton(
                   onPressed: () {},
-                  child: const Text(
+                  child:  Text(
                     'Don\'t have an account? Sign Up',
                     style: TextStyle(
-                      color: Colors.lightBlue,
+                      color: greenColor,
                       fontSize: 16.0,
                     ),
                   ),

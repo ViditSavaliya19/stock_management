@@ -27,7 +27,7 @@ class _EntryScreenState extends State<EntryScreen> {
   final TextEditingController _quantityController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
-  final List<String> _units = ['kg', 'tonne']; // Units for selection
+  final List<String> _units = ['liters', 'tonne','kg']; // Units for selection
   String? _selectedUnit = 'kg'; // Default unit
 
   @override
@@ -200,7 +200,7 @@ class _EntryScreenState extends State<EntryScreen> {
           addEntryEmpName: profileController.userModel.value.name!);
 
       await FireDbHelper.helper.addStockEntryToFireStore(entryModel);
-
+      Get.back();
     }
   }
 }

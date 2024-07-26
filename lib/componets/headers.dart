@@ -5,7 +5,6 @@ import '../controller/MenuAppController.dart';
 import '../utils/Responsive.dart';
 import '../utils/constants.dart';
 
-
 class Header extends StatelessWidget {
   Header({
     Key? key,
@@ -16,15 +15,11 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 60,
       padding: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
           color: Colors.lightBlue[50],
-          boxShadow: const [
-          BoxShadow(
-            color: Colors.grey
-          )
-        ]
-      ),
+          boxShadow: const [BoxShadow(color: Colors.grey)]),
       child: Row(
         children: [
           if (!Responsive.isDesktop(context))
@@ -37,10 +32,11 @@ class Header extends StatelessWidget {
               "Dashboard",
               style: Theme.of(context).textTheme.titleLarge,
             ),
-          if (!Responsive.isMobile(context))
-            Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
-          // const Expanded(child: SearchField()),
-          const ProfileCard()
+          const Spacer(),
+          Image.asset(
+            "assets/images/profile_pic.png",
+            height: 38,
+          ),
         ],
       ),
     );
@@ -73,8 +69,7 @@ class ProfileCard extends StatelessWidget {
           ),
           if (!Responsive.isMobile(context))
             const Padding(
-              padding:
-              EdgeInsets.symmetric(horizontal: defaultPadding / 2),
+              padding: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
               child: Text("Angelina Jolie"),
             ),
           const Icon(Icons.keyboard_arrow_down),

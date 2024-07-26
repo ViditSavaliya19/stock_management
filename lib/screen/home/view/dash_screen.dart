@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:srock_management/componets/headers.dart';
+import 'package:srock_management/screen/spalsh/controller/spalsh_controller.dart';
 import 'package:srock_management/utils/helper/firedb_helper.dart';
 
 import '../../../utils/constants.dart';
@@ -22,14 +23,15 @@ class _DashScreenState extends State<DashScreen> {
   ProfileController profileController = Get.put(ProfileController());
   EntryController entryController = Get.put(EntryController());
   StockController stockController = Get.put(StockController());
+  SplashController splashController =Get.find();
   final _formKey = GlobalKey<FormState>();
 
   String? _selectedStockName;
   final TextEditingController _quantityController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
   TimeOfDay _selectedTime = TimeOfDay.now();
-  final List<String> _units = ['kg', 'tonne']; // Units for selection
-  String? _selectedUnit = 'kg'; // Default unit
+  final List<String> _units = ['liters', 'tonne','kg']; // Units for selection
+  String? _selectedUnit = 'liters'; // Default unit
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +61,7 @@ class _DashScreenState extends State<DashScreen> {
                     child: Expanded(
                       child: DropdownButtonFormField<String>(
                         value: entryController.selectedCompany.value,
-                        items: entryController.companies.map((String company) {
+                        items: splashController.companyList.map((company) {
                           return DropdownMenuItem<String>(
                             value: company,
                             child: Text(company),
@@ -118,7 +120,7 @@ class _DashScreenState extends State<DashScreen> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Visibility(
-                              visible:profileController.userModel.value.department![0]==entryController.entryList[index].companyName,
+                              visible:profileController.userModel.value.department![0]==entryController.entryList[index].companyName || profileController.userModel.value.designation![0] =="Admin",
                               child: IconButton(
                                 icon: const Icon(Icons.edit, color: Colors.blue),
                                 onPressed: () {
@@ -127,7 +129,7 @@ class _DashScreenState extends State<DashScreen> {
                               ),
                             ),
                             Visibility(
-                              visible:profileController.userModel.value.department![0]==entryController.entryList[index].companyName,
+                              visible:profileController.userModel.value.department![0]==entryController.entryList[index].companyName || profileController.userModel.value.designation![0] =="Admin",
                               child: IconButton(
                                 icon: const Icon(Icons.delete, color: Colors.red),
                                 onPressed: () {
@@ -306,7 +308,7 @@ class _DashScreenState extends State<DashScreen> {
           onPressed: () {
             if (_formKey.currentState!.validate()) {
               // Retrieve the form data
-              _submitForm(entryModel.docId!);
+              _submitForm(entryModel.docId!,entryModel);
             }
           },
         ),
@@ -338,20 +340,20 @@ class _DashScreenState extends State<DashScreen> {
     }
   }
 
-  void _submitForm(String docId) {
+  void _submitForm(String docId, EntryModel model) {
     if (_formKey.currentState!.validate() && _selectedStockName != null) {
       int quantity = int.parse(_quantityController.text.trim());
 
-      // EntryModel entryModel = EntryModel(
-      //     stockName: _selectedStockName!,
-      //     companyName: profileController.userModel.value.department!,
-      //     date: _selectedDate,
-      //     time: "${_selectedTime.hour}:${_selectedTime.minute}",
-      //     quantity: quantity,
-      //     unit: _selectedUnit!,
-      //     addEntryEmpName: profileController.userModel.value.name!);
-      //
-      // FireDbHelper.helper.updateEntryStock(entryModel,docId);
+      EntryModel entryModel = EntryModel(
+          stockName: _selectedStockName!,
+          companyName: model.companyName,
+          date: _selectedDate,
+          time: "${_selectedTime.hour}:${_selectedTime.minute}",
+          quantity: quantity,
+          unit: _selectedUnit!,
+          addEntryEmpName: model.addEntryEmpName);
+
+      FireDbHelper.helper.updateEntryStock(entryModel,docId);
     }
   }
 }

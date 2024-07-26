@@ -18,6 +18,7 @@ class _UserScreenState extends State<UserScreen> {
         body: Column(
           children: [
             TabBar(
+              isScrollable: true,
               tabs: [
                 Tab(
                   text: "New users",

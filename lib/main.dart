@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:srock_management/controller/MenuAppController.dart';
 import 'package:srock_management/utils/app_routes.dart';
+import 'package:srock_management/utils/constants.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       theme: ThemeData(
-        colorSchemeSeed: Colors.white
+        colorSchemeSeed: greenColor,
+        scaffoldBackgroundColor: Colors.white
       ),
       routes: AppRoutes.routes,
     );

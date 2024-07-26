@@ -124,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //   ),
       // ),
       floatingActionButton: Visibility(
-        visible: !(profileController.splashController.currentPermission.length==1 &&  profileController.splashController.currentPermission.contains(PERMISSION_3)),
+        visible:profileController.splashController.currentPermission.isNotEmpty  && (!(profileController.splashController.currentPermission.length==1 &&  profileController.splashController.currentPermission.contains(PERMISSION_3))) ,
         child: FloatingActionButton(
           onPressed: () {
             Get.toNamed('entry');

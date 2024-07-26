@@ -14,7 +14,6 @@ class EntryController {
   StockController stockController = Get.put(StockController());
   RxList<EntryModel> entryList = <EntryModel>[].obs;
   List<EntryModel> allEntryBackUpList = <EntryModel>[];
-  final List<String> companies = ["All", "Mahad", "Karunesh", "Soham", "Ansh"];
   Rx<DateTime> startDate = DateTime.now().obs;
   RxString selectedCompany = "All".obs;
 

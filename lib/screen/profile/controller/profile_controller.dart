@@ -24,6 +24,8 @@ class ProfileController extends GetxController {
         .getPermissionCodeToDesignation(
         userModel.value, splashController. designationList);
 
-    // print("===================== ${currentPermission.value}");
+
+
+    print("===================== ${splashController.currentPermission.value}");
   }
 }
