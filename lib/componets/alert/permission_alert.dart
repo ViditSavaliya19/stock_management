@@ -17,11 +17,11 @@ class PermissionAlert extends StatelessWidget {
               children: List.generate(
                 userController.detailPermissionList.length,
                 (index) => SwitchListTile(
-                  value: userController.detailPermissionList[index].permission ?? false ,
+                  value: userController.detailPermissionList[index].permission,
                   onChanged: (value) {
                     var desi = userController.detailPermissionList[index];
                     desi.permission =value;
-                    userController.detailPermissionList[index] =desi;
+                    userController.detailPermissionList[index] = desi;
 
                   },
                   title: Text("${userController.detailPermissionList[index].permissionName}"),

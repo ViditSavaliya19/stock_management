@@ -140,10 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
           setState(() {
             //Assign Permission Designation wise
 
-            if (profileController.splashController.currentPermission
-                    .contains(PERMISSION_1) ||
-                profileController.splashController.currentPermission
-                    .contains(PERMISSION_3)) {
+            if (profileController.splashController.currentPermission.contains(PERMISSION_2)) {
               i = value;
             }
           });
