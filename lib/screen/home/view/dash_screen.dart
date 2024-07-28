@@ -354,6 +354,7 @@ class _DashScreenState extends State<DashScreen> {
           addEntryEmpName: model.addEntryEmpName);
 
       FireDbHelper.helper.updateEntryStock(entryModel,docId);
+      Get.back();
     }
   }
 }

@@ -196,6 +196,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       );
       if (isSuccess) {
+
+        _formKey.currentState!.reset();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Registration Successful')),
         );

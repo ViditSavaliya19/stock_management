@@ -93,7 +93,7 @@ class SideMenu extends StatelessWidget {
             icon: Icons.login,
             press: () {
               AuthHelper.helper.signOut();
-              Get.offAllNamed('login');
+              Get.offAllNamed('/login');
             },
           ),
 

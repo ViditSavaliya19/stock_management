@@ -3,12 +3,13 @@ import 'package:intl/intl.dart';
 import 'package:srock_management/screen/entry/model/analysis_model.dart';
 import 'package:srock_management/screen/profile/controller/profile_controller.dart';
 import 'package:srock_management/screen/stock/controller/stock_controller.dart';
+import 'package:srock_management/screen/stock/model/stock_model.dart';
 import 'package:srock_management/utils/constants.dart';
 import 'package:srock_management/utils/helper/firedb_helper.dart';
 
 import '../model/entry_model.dart';
 
-class EntryController {
+class EntryController extends GetxController {
   RxMap<String, AnalysisModel> analysisList = <String, AnalysisModel>{}.obs;
   ProfileController profileController = Get.find();
   StockController stockController = Get.put(StockController());
@@ -16,6 +17,16 @@ class EntryController {
   List<EntryModel> allEntryBackUpList = <EntryModel>[];
   Rx<DateTime> startDate = DateTime.now().obs;
   RxString selectedCompany = "All".obs;
+  RxList<StockModel> stockList =<StockModel>[].obs;
+
+
+  @override
+  void onInit() {
+    stockList = stockController.stockList;
+    super.onInit();
+  }
+
+
 
   void getAllCompanyStock() {
     FireDbHelper.helper.getCompanyStockStream().listen(

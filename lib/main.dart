@@ -21,12 +21,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      // initialRoute: '/',
       theme: ThemeData(
         colorSchemeSeed: greenColor,
         scaffoldBackgroundColor: Colors.white
       ),
       routes: AppRoutes.routes,
+      // getPages: AppRoutes.routes,
     );
   }
 }
