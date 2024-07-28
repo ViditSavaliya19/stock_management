@@ -21,7 +21,7 @@ class DashScreen extends StatefulWidget {
 
 class _DashScreenState extends State<DashScreen> {
   ProfileController profileController = Get.put(ProfileController());
-  EntryController entryController = Get.put(EntryController());
+  EntryController entryController = Get.find();
   StockController stockController = Get.put(StockController());
   SplashController splashController =Get.find();
   final _formKey = GlobalKey<FormState>();
@@ -354,6 +354,7 @@ class _DashScreenState extends State<DashScreen> {
           addEntryEmpName: model.addEntryEmpName);
 
       FireDbHelper.helper.updateEntryStock(entryModel,docId);
+      Get.back();
     }
   }
 }

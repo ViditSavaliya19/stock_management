@@ -1,14 +1,17 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:srock_management/screen/entry/model/analysis_model.dart';
+import 'package:srock_management/screen/entry/model/bulk_entry_model.dart';
 import 'package:srock_management/screen/profile/controller/profile_controller.dart';
 import 'package:srock_management/screen/stock/controller/stock_controller.dart';
+import 'package:srock_management/screen/stock/model/stock_model.dart';
 import 'package:srock_management/utils/constants.dart';
 import 'package:srock_management/utils/helper/firedb_helper.dart';
 
 import '../model/entry_model.dart';
 
-class EntryController {
+class EntryController extends GetxController {
   RxMap<String, AnalysisModel> analysisList = <String, AnalysisModel>{}.obs;
   ProfileController profileController = Get.find();
   StockController stockController = Get.put(StockController());
@@ -16,6 +19,14 @@ class EntryController {
   List<EntryModel> allEntryBackUpList = <EntryModel>[];
   Rx<DateTime> startDate = DateTime.now().obs;
   RxString selectedCompany = "All".obs;
+  RxList<StockModel> stockList = <StockModel>[].obs;
+  RxList<BulkEntryModel> bulkEntry = <BulkEntryModel>[].obs;
+
+  @override
+  void onInit() {
+    stockList = stockController.stockList;
+    super.onInit();
+  }
 
   void getAllCompanyStock() {
     FireDbHelper.helper.getCompanyStockStream().listen(
@@ -53,7 +64,7 @@ class EntryController {
             .contains(stock.companyName.trim());
 
         // if (profileController.userModel.value.access != "Admin") {
-        return matchesDate  && empCompany;
+        return matchesDate && empCompany;
         // } else {
         // return matchesDate && matchesCompany;
         // }
@@ -96,5 +107,29 @@ class EntryController {
     print(temp);
 
     analysisList.value = temp;
+  }
+
+  Future<void> addBulkEntry() async {
+    for (var x in bulkEntry) {
+      String qua = x.txtQuantity.text.trim();
+
+      if (qua != "0" && qua.isNotEmpty) {
+        int quantity = int.parse(qua.trim());
+
+        if (!(quantity <= 0)) {
+
+          EntryModel entryModel = EntryModel(
+              stockName: x.stockModel!.stockName!,
+              companyName: profileController.userModel.value.department![0],
+              date: DateTime.now(),
+              time: "${TimeOfDay.now().hour}:${TimeOfDay.now().minute}",
+              quantity: quantity,
+              unit: x.unit!,
+              addEntryEmpName: profileController.userModel.value.name!);
+
+          await FireDbHelper.helper.addStockEntryToFireStore(entryModel);
+        }
+      }
+    }
   }
 }

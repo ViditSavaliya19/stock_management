@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             _buildProfileItem(
                 Icons.phone, 'Mobile', controller.userModel.value.mobile),
             _buildProfileItem(Icons.security, 'Designation',
-                controller.userModel.value.designation![0]),
+                controller.userModel.value.designation!.toString()),
           ],
         ),
       ),

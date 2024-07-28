@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     }
     Timer(
       const Duration(seconds: 3),
-          () => Get.offAllNamed(isLogin ? 'app' : 'login'),
+          () => Get.offAllNamed(isLogin ? '/app' : '/login'),
     );
   }
 

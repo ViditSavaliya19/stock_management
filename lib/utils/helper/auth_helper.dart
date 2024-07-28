@@ -18,15 +18,9 @@ class AuthHelper {
       // Login successful, navigate to the next screen
       return true;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Get.snackbar('No user found for that email.', 'Auth Error');
-        return false;
-      } else if (e.code == 'wrong-password') {
-        Get.snackbar('Wrong password provided.', 'Auth Error');
-        return false;
-      }
+      Get.snackbar('${e.message}', 'Auth Error');
+      return false;
     }
-    return null;
   }
 
   void signOut() {

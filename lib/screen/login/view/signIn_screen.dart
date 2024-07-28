@@ -33,7 +33,6 @@ class _SignInScreenState extends State<SignInScreen> {
               children: <Widget>[
                  CircleAvatar(
                   radius: 60.0,
-                  backgroundColor: Colors.white,
                   child: Icon(
                     Icons.person,
                     size: 60.0,
@@ -57,7 +56,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     prefixIcon:
                          Icon(Icons.email, color: greenColor),
                     filled: true,
-                    fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                       borderSide: BorderSide.none,
@@ -73,7 +71,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     hintText: 'Password',
                     prefixIcon:  Icon(Icons.lock, color: greenColor),
                     filled: true,
-                    fillColor: Colors.white,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
                       borderSide: BorderSide.none,
@@ -127,7 +124,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
       if (isLogin) {
         await profileController.getProfileData();
-        Get.offAllNamed('app');
+        Get.offAllNamed('/app');
       }
     }
   }
