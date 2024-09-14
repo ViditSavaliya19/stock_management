@@ -14,5 +14,5 @@ A new Flutter project.
 
 
 <p>
-   <img src= "https://github.com/user-attachments/assets/64d9cdff-bf79-4fd0-a310-636c0d36cb4a" >
+   <img src= "https://github.com/user-attachments/assets/64d9cdff-bf79-4fd0-a310-636c0d36cb4a" height="480", width="180">
 </p>
