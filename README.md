@@ -28,7 +28,7 @@ Follow these steps to set up and run the AI Chat Bot App on your local environme
 ## ScreenShot
 
 <p>
-   <img src="https://github.com/user-attachments/assets/46c983b4-7826-4621-920f-cc4d7de336e0" hight: 400px; width: 200px>
+   <img src="https://github.com/user-attachments/assets/46c983b4-7826-4621-920f-cc4d7de336e0" width="220px">
    
 </p>
 
